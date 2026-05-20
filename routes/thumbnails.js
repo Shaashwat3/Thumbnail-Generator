@@ -10,7 +10,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-// Render the authenticated thumbnail generation page.
+// Render the authenticated thumbnail generation page
 router.get('/generate', isAuthenticated, (req, res) => {
   res.render('generate', {
     imageUrl: null,
