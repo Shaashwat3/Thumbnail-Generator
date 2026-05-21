@@ -78,6 +78,7 @@ main {
   margin-top: 0;
 }
 
+/* Responsive Design */
 @media only screen and (max-width: 600px) {
   .brand-logo {
     font-size: 1.1rem;
@@ -89,4 +90,3 @@ main {
   }
 }
 
-/* hi*/
