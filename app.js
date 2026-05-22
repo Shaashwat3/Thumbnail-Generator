@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 require('./config/passport')(passport);
 
-// Connect Mongoose before serving requests so database-backed routes are ready.
+// Connect Mongoose before serving requests so database-backed routes are ready
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => {
