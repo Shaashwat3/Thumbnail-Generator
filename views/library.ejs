@@ -4,9 +4,17 @@
   <div class="col s12">
     <div class="section-heading">
       <h4 class="blue-text text-darken-3">Your Thumbnail Library</h4>
-      <a href="/generate" class="waves-effect waves-light btn blue darken-3">
-        <i class="material-icons left">add</i>Generate New
-      </a>
+        <div style="margin: 0.5rem 0 1.5rem;">
+          <a href="/library" class="btn-flat waves-effect <%= !showFavourites ? 'blue-text text-darken-3 grey lighten-3' : 'grey-text' %>">
+            <i class="material-icons left">photo_library</i>All
+          </a>
+          <a href="/library?filter=favourites" class="btn-flat waves-effect <%= showFavourites ? 'amber-text text-darken-2 grey lighten-3' : 'grey-text' %>">
+            <i class="material-icons left">star</i>Favourites
+          </a>
+          <a href="/generate" class="waves-effect waves-light btn blue darken-3">
+            <i class="material-icons left">add</i>Generate New
+          </a>
+        </div>
     </div>
   </div>
 </div>
@@ -34,7 +42,15 @@
               <%= thumbnail.createdAt.toLocaleDateString() %>
             </p>
           </div>
-          <div class="card-action">
+          <div class="card-action" style="display: flex; gap: 0.5rem; align-items: center;">
+            <form action="/library/<%= thumbnail._id %>/favourite" method="POST">
+              <button type="submit"
+                class="btn-small waves-effect waves-light <%= thumbnail.isFavourite ? 'amber darken-2' : 'grey lighten-1' %>"
+                title="<%= thumbnail.isFavourite ? 'Remove from favourites' : 'Add to favourites' %>">
+                <i class="material-icons"><%= thumbnail.isFavourite ? 'star' : 'star_border' %></i>
+              </button>
+            </form>
+
             <form action="/library/<%= thumbnail._id %>?_method=DELETE" method="POST" class="delete-thumbnail-form">
               <button type="submit" class="btn-small waves-effect waves-light red darken-1">
                 <i class="material-icons left">delete</i>Delete
