@@ -76,14 +76,46 @@ router.post('/generate', isAuthenticated, async (req, res) => {
 // Display all thumbnails owned by the current user.
 router.get('/library', isAuthenticated, async (req, res) => {
   try {
-    const thumbnails = await Thumbnail.find({ userId: req.user._id }).sort({ createdAt: -1 });
-    res.render('library', { thumbnails });
+
+    /*
+    const showFavourites = req.query.filter === 'favourites';
+    const query = { userId: req.user._id };
+    if (showFavourites) query.isFavourite = true;
+
+    const thumbnails = await Thumbnail.find(query).sort({ createdAt: -1 });
+    res.render('library', { thumbnails, showFavourites });
+    */
+  
   } catch (error) {
     console.error('Library load failed:', error);
     req.flash('error', 'Could not load your thumbnail library.');
     res.redirect('/generate');
   }
 });
+
+// ⭐ NEW: Toggle favourite status for a thumbnail owned by the current user.
+
+/*
+router.post('/library/:id/favourite', isAuthenticated, async (req, res) => {
+  try {
+    const thumbnail = await Thumbnail.findOne({
+      _id: req.params.id,
+      userId: req.user._id
+    });
+
+    if (thumbnail) {
+      thumbnail.isFavourite = !thumbnail.isFavourite;
+      await thumbnail.save();
+    }
+  } catch (error) {
+    console.error('Favourite toggle failed:', error);
+  }
+
+  const referer = req.get('Referer') || '/library';
+  res.redirect(referer);
+});
+*/
+
 
 // Delete only thumbnails that belong to the authenticated user.
 router.delete('/library/:id', isAuthenticated, async (req, res) => {
